@@ -1,7 +1,7 @@
 #include <Keyboard.h>
 
-const int buzzer = 2;
-const int sandOn = 3;
+const int buzzer = 2; // buzzer button connects to pin 2
+const int sandOn = 3; // sand on button connects to pin 3, and so on
 const int sandMomentary = 4;
 const int sandOff = 5;
 const int door = 10;
@@ -124,12 +124,14 @@ void loop() {
 
   delay(10); // Small delay to stabilize readings
 
+  //horn function
   if (digitalRead(horn) == LOW){
     Keyboard.press('n');
   } else if (digitalRead(horn) == HIGH){
     Keyboard.release('n');
   }
 
+  //bell function
   if (digitalRead(bell) == LOW) {
         if (millis() - lastBellPress > debounceDelay) {
             Keyboard.press('b');
@@ -139,6 +141,7 @@ void loop() {
         Keyboard.release('b');
     }
 
+  //sand button logic
   if (digitalRead(sandOn) == LOW){
     digitalWrite(2, HIGH);
     sandState = 1;
@@ -161,6 +164,7 @@ void loop() {
     }
   }
 
+  //door function
   if (digitalRead(door) == LOW){
     Keyboard.press('t');
   } else if (digitalRead(door) == HIGH){
